@@ -182,13 +182,13 @@ class ZeroDownTimeMixin(object):
         return actions
 
     def get_pk_column_name(self, model):
-        return model._meta.pk.name
+        return model._meta.pk.column
 
     def update_batch(self, model, field, objects_in_batch_count, value):
         pk_column_name = self.get_pk_column_name(model)
         sql = self.sql_update_batch % {
             "table": model._meta.db_table,
-            "column": field.name,
+            "column": field.column,
             "batch_size": objects_in_batch_count,
             "pk_column_name": pk_column_name,
             "value": "%s",
